@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSR Expenses</title>
+    <link rel="stylesheet" href="dsr.css" />
+  </head>
+  <body>
+    <h1>DSR EXPENSES</h1>
+    <div class="container">
+      <div class="top box">
+        <div class="search-container">
+          <input class="search" type="text" placeholder="Search here" />
+          <img class="search-icon" src="assets/search.png" alt="Search" />
+          <img class="close-icon" src="assets/close.png" alt="Close" />
+        </div>
+
+        <div class="filter">
+          <label for="filter">Filter By:</label>
+          <select id="filter">
+            <option value="">Select</option>
+            <option value="Vehicle No">Vehicle No</option>
+            <option value="Transporter">Transporter</option>
+            <option value="Cargo">Cargo</option>
+          </select>
+        </div>
+
+        <button class="add-expense" onclick="toggleForm()">+</button>
+      </div>
+
+      <div id="overlay" class="overlay" onclick="toggleForm()"></div>
+      <div class="popup-form" id="popupForm">
+        <div class="form-header">
+          <span>Add Details</span>
+          <button class="clear" onclick="clearForm()">Clear</button>
+          <button class="close" onclick="toggleForm()">×</button>
+        </div>
+        <div class="popup-form-grid" id="popupFormGrid">
+          <label for="movement">Movement Date:</label>
+          <input type="date" id="movement" />
+
+          <label for="vehicle-no">Vehicle No:</label>
+          <input type="text" id="vehicle-no" />
+
+          <label for="contr-no">Contract No:</label>
+          <input type="text" id="contr-no" />
+
+          <label for="twenty">Container Size:</label>
+          <select id="twenty">
+            <option value="" disabled selected>20' / 40'</option>
+            <option value="20'">20'</option>
+            <option value="40'">40'</option>
+          </select>
+
+          <label for="cargo">Cargo:</label>
+          <select id="cargo">
+            <option value="" disabled selected>Select Cargo</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Chillies">Chillies</option>
+            <option value="Seafood">Seafood</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label for="on-ac">On A/C:</label>
+          <input type="text" id="on-ac" />
+
+          <label for="bill-to">Bill To:</label>
+          <input type="text" id="bill-to" />
+
+          <label for="from">From:</label>
+          <input type="text" id="from" />
+
+          <label for="to">To:</label>
+          <input type="text" id="to" />
+
+          <label for="laden-contr-offload">Laden Container Offload:</label>
+          <input type="text" id="laden-contr-offload" />
+
+          <label for="invoice-no">Invoice No:</label>
+          <input type="text" id="invoice-no" />
+
+          <label for="invoice-date">Invoice Date:</label>
+          <input type="date" id="invoice-date" />
+
+          <label for="rate">Rate:</label>
+          <input type="number" id="rate" />
+
+          <label for="halting">Halting:</label>
+          <input type="number" id="halting" />
+
+          <label for="total">Total Amount:</label>
+          <input type="number" id="total" />
+
+          <label for="advance">Advance Diesel Amount:</label>
+          <input type="number" id="advance" />
+
+          <label for="balance">Balance To Be Paid:</label>
+          <input type="number" id="balance" />
+
+          <label for="paid-to">Paid to Vendor On:</label>
+          <input type="date" id="paid-to" />
+
+          <label for="billing-rate">Billing Rate:</label>
+          <input type="number" id="billing-rate" />
+
+          <label for="empty-pickup-exp">Empty Pickup Expense:</label>
+          <input type="number" id="empty-pickup-exp" />
+
+          <label for="billing-amount">Billing Amount:</label>
+          <input type="number" id="billing-amount" />
+
+          <label for="tds-deducted">TDS Deducted:</label>
+          <input type="number" id="tds-deducted" />
+
+          <label for="net-amount">Net Amount Received:</label>
+          <input type="number" id="net-amount" />
+
+          <label for="payment-receipt">Payment Receipt Date:</label>
+          <input type="date" id="payment-receipt" />
+
+          <label for="business-promotion">Business Promotion:</label>
+          <input type="text" id="business-promotion" />
+
+          <label for="paid-on">Paid On:</label>
+          <input type="date" id="paid-on" />
+
+          <label for="expenses">Trip Expenses:</label>
+          <input type="text" id="expenses" />
+
+          <label for="margin">Margin:</label>
+          <input type="text" id="margin" />
+
+          <label for="remarks">Remarks:</label>
+          <input type="text" id="remarks" />
+
+          <button class="add-entry" onclick="addCard()">Submit</button>
+        </div>
+      </div>
+      <table class="expense-table" id="expenseTable">
+        <thead>
+          <tr>
+            <th>Sl.no</th>
+            <th>Movement Date</th>
+            <th>Vehicle No</th>
+            <th>Contract No</th>
+            <th>Container Size</th>
+            <th>Cargo</th>
+            <th>On A/C</th>
+            <th>Bill To</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Laden Container Offload</th>
+            <th>Invoice No.</th>
+            <th>Invoice Date</th>
+            <th>Rate</th>
+            <th>Halting</th>
+            <th>Total Amount</th>
+            <th>Advance Diesel Amount</th>
+            <th>Balance To Be Paid</th>
+            <th>Paid To Vendor On</th>
+            <th>Billing Rate</th>
+            <th>Empty Pickup Expense</th>
+            <th>Billing Amount</th>
+            <th>TDS Deducted</th>
+            <th>Net Amount Received</th>
+            <th>Payment Receipt Date</th>
+            <th>Business Promotion</th>
+            <th>Paid On</th>
+            <th>Trip Expenses</th>
+            <th>Margin</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Expense entries will be added dynamically here -->
+        </tbody>
+      </table>
+    </div>
+
+    <script src="dsr.js"></script>
+  </body>
+</html>
