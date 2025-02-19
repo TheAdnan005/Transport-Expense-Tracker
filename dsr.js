@@ -1,54 +1,118 @@
-function formatDate(dateString) {
-    if (!dateString) return "";
-    const [year, month, day] = dateString.split("-");
+/**
+ * Checks if an object is a valid JavaScript Date.
+ */
+function isValidDate(obj) {
+    return Object.prototype.toString.call(obj) === "[object Date]" && !isNaN(obj.getTime());
+}
+
+/**
+ * Converts a valid Date object to "DD.MM.YYYY".
+ */
+function formatDate(dateObj) {
+    if (!isValidDate(dateObj)) {
+        console.error("Invalid date object:", dateObj);
+        return "Invalid Date"; // Return a fallback value
+    }
+
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const year = dateObj.getFullYear();
     return `${day}.${month}.${year}`;
 }
-  
-  function exportToExcel() {
-    let table = document.getElementById("expenseTable");
-    let workbook = XLSX.utils.book_new();
-    let worksheet = XLSX.utils.table_to_sheet(table);
-  
-    // Zero-based column indexes that contain date values
-    let dateColumns = [1, 12, 18, 25, 27];
-  
+
+/**
+ * Converts an Excel serial date number to a JavaScript Date,
+ * adjusting for Excel's leap year bug if needed.
+ */
+function parseExcelDate(value) {
+    if (typeof value === "number") {
+        return new Date((value - 25569) * 86400000); // Convert Excel date to JS date
+    } else if (typeof value === "string") {
+        const parsed = new Date(value);
+        return isValidDate(parsed) ? parsed : null;
+    }
+    return null;
+}
+
+/**
+ * Parses a string that might be in "YYYY-MM-DD", "DD-MM-YYYY", or
+ * slash-based formats, returning a Date if possible. Otherwise returns null.
+ */
+function parseDateString(dateStr) {
+    const parts = dateStr.split(/[^0-9]/).filter(Boolean);
+    if (parts.length !== 3) return null;
+
+    // Detect the 4-digit year
+    const yearIndex = parts.findIndex(p => p.length === 4);
+    if (yearIndex === -1) return null;
+
+    let year, month, day;
+
+    if (yearIndex === 0) {
+        [year, month, day] = parts; // "YYYY-MM-DD"
+    } else if (yearIndex === 2) {
+        [day, month, year] = parts; // "DD-MM-YYYY"
+    } else {
+        return null; // Invalid format
+    }
+
+    const parsedDate = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
+    return isValidDate(parsedDate) ? parsedDate : null;
+}
+
+/**
+ * Exports table data to an Excel file, ensuring date columns are formatted correctly.
+ */
+function exportToExcel() {
+    const table = document.getElementById("expenseTable");
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.table_to_sheet(table);
+
+    const dateColumns = [1, 12, 18, 25, 27];
+
     dateColumns.forEach(colIndex => {
-      let colLetter = XLSX.utils.encode_col(colIndex);
-  
-      for (let rowNum = 2; rowNum <= 2000; rowNum++) {
-        let cellRef = colLetter + rowNum;
-        let cell = worksheet[cellRef];
-  
-        if (cell && cell.v) {
-          let value = cell.v;
-  
-          if (typeof value === "number") {
-            // Adjust for Excel's leap year bug:
-            // For values >= 60, subtract one day.
-            let adjustedValue = (value >= 60) ? value - 1 : value;
-            // Excel's day 1 is 1900-01-01, so subtract 1 and convert
-            let actualDate = new Date((adjustedValue - 1) * 86400000 + Date.UTC(1900, 0, 1));
-            cell.v = formatDateString(actualDate);
-            cell.t = "s";
-          } else if (typeof value === "string") {
-            // Split string on any non-digit (handles "YYYY-MM-DD", "YYYY/MM/DD", etc.)
-            let parts = value.split(/[^0-9]/).filter(Boolean);
-            if (parts.length === 3) {
-              let [year, month, day] = parts;
-              cell.v = `${day.padStart(2, '0')}.${month.padStart(2, '0')}.${year}`;
-              cell.t = "s";
+        const colLetter = XLSX.utils.encode_col(colIndex);
+
+        for (let rowNum = 2; rowNum <= 2000; rowNum++) {
+            const cellRef = colLetter + rowNum;
+            const cell = worksheet[cellRef];
+            if (!cell || cell.v == null) continue;
+
+            const value = cell.v;
+
+            // 1) Numeric: Excel serial date
+            if (typeof value === "number") {
+                const jsDate = parseExcelDate(value);
+                if (isValidDate(jsDate)) {
+                    cell.v = formatDate(jsDate);
+                    cell.t = "s";
+                }
             }
-          }
+            // 2) Already a Date object
+            else if (isValidDate(value)) {
+                cell.v = formatDate(value);
+                cell.t = "s";
+            }
+            // 3) A string that might be "YYYY-MM-DD", "DD-MM-YYYY", etc.
+            else if (typeof value === "string") {
+                const parsedDate = parseDateString(value);
+                if (parsedDate) {
+                    cell.v = formatDate(parsedDate);
+                    cell.t = "s";
+                }
+            }
         }
-      }
-  
-      if (!worksheet['!cols']) worksheet['!cols'] = [];
-      worksheet['!cols'][colIndex] = { wch: 12 };
+
+        if (!worksheet["!cols"]) worksheet["!cols"] = [];
+        worksheet["!cols"][colIndex] = { wch: 12 };
     });
-  
+
     XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
     XLSX.writeFile(workbook, "Expense_Report.xlsx");
-  }
+}
+
+  
+  
   
 
 const searchIcon = document.querySelector(".search-icon");
@@ -210,7 +274,7 @@ function updateTable() {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${index + 1}</td>
-            <td>${formatDate(entry.movement)}</td>
+            <td>${formatDate(new Date(entry.movement))}</td>
             <td>${entry.vehicleNo}</td>
             <td>${entry.contrNo}</td>
             <td>${entry.twenty}</td>
@@ -221,7 +285,7 @@ function updateTable() {
             <td>${entry.to}</td>
             <td>${entry.ladenContrOffload}</td>
             <td>${entry.invoiceNo}</td>
-            <td>${formatDate(entry.invoiceDate)}</td>
+            <td>${formatDate(new Date(entry.invoiceDate))}</td>
             <td>${entry.rate}</td>
             <td>${entry.halting}</td>
             <td>${entry.total}</td>
@@ -234,9 +298,9 @@ function updateTable() {
             <td>${entry.billingAmount}</td>
             <td>${entry.tds}</td>
             <td>${entry.netAmount}</td>
-            <td>${formatDate(entry.paymentReceipt)}</td>
+            <td>${formatDate(new Date(entry.paymentReceipt))}</td>
             <td>${entry.businessPromotion}</td>
-            <td>${formatDate(entry.paidOn)}</td>
+            <td>${formatDate(new Date(entry.paidOn))}</td>
             <td>${entry.expenses}</td>
             <td>${entry.margin}</td>
             <td>${entry.Transporter}</td>
