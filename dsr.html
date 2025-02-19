@@ -8,27 +8,25 @@
   </head>
   <body>
     <h1>DSR EXPENSES</h1>
-    <div class="container">
-      <div class="top box">
-        <div class="search-container">
-          <input class="search" type="text" placeholder="Search here" />
-          <img class="search-icon" src="assets/search.png" alt="Search" />
-          <img class="close-icon" src="assets/close.png" alt="Close" />
-        </div>
-
-        <div class="filter">
-          <label for="filter">Filter By:</label>
-          <select id="filter">
-            <option value="">Select</option>
-            <option value="Vehicle No">Vehicle No</option>
-            <option value="Transporter">Transporter</option>
-            <option value="Cargo">Cargo</option>
-          </select>
-        </div>
-
-        <button class="add-expense" onclick="toggleForm()">+</button>
+    <div class="top box">
+      <div class="search-container">
+        <input class="search" type="text" placeholder="Search here" />
+        <img class="search-icon" src="assets/search.png" alt="Search" />
+        <img class="close-icon" src="assets/close.png" alt="Close" />
       </div>
 
+      <div class="filter">
+        <select id="filters">
+          <option class="first" va="">Filter By</option>
+          <option value="Vehicle No">Vehicle No</option>
+          <option value="Transporter">Transporter</option>
+          <option value="Cargo">Cargo</option>
+        </select>
+      </div>
+
+      <button class="add-expense" onclick="toggleForm()">+</button>
+    </div>
+    <div class="container">
       <div id="overlay" class="overlay" onclick="toggleForm()"></div>
       <div class="popup-form" id="popupForm">
         <div class="form-header">
@@ -41,10 +39,17 @@
           <input type="date" id="movement" />
 
           <label for="vehicle-no">Vehicle No:</label>
-          <input type="text" id="vehicle-no" />
+          <input
+            type="text"
+            id="vehicle-no"
+            class="caps"
+            list="vehicle-suggestions"
+          />
+          <datalist id="vehicle-suggestions"> </datalist>
+          <button onclick="clearStoredData()">Clear Stored Vehicles</button>
 
-          <label for="contr-no">Contract No:</label>
-          <input type="text" id="contr-no" />
+          <label for="contr-no">Container No:</label>
+          <input type="text" id="contr-no" class="caps" />
 
           <label for="twenty">Container Size:</label>
           <select id="twenty">
@@ -54,31 +59,36 @@
           </select>
 
           <label for="cargo">Cargo:</label>
-          <select id="cargo">
-            <option value="" disabled selected>Select Cargo</option>
-            <option value="Coffee">Coffee</option>
-            <option value="Chillies">Chillies</option>
-            <option value="Seafood">Seafood</option>
-            <option value="Other">Other</option>
-          </select>
+          <input type="text" id="cargo" class="caps" list="cargo-list" />
+          <datalist id="cargo-list"></datalist>
 
           <label for="on-ac">On A/C:</label>
-          <input type="text" id="on-ac" />
+          <input type="text" id="on-ac" class="caps" list="on-ac-list" />
+          <datalist id="on-ac-list"></datalist>
 
           <label for="bill-to">Bill To:</label>
-          <input type="text" id="bill-to" />
+          <input type="text" id="bill-to" class="caps" list="bill-to-list" />
+          <datalist id="bill-to-list"></datalist>
 
           <label for="from">From:</label>
-          <input type="text" id="from" />
+          <input type="text" id="from" class="caps" list="from-list" />
+          <datalist id="from-list"></datalist>
 
           <label for="to">To:</label>
-          <input type="text" id="to" />
+          <input type="text" id="to" class="caps" list="to-list" />
+          <datalist id="to-list"></datalist>
 
           <label for="laden-contr-offload">Laden Container Offload:</label>
-          <input type="text" id="laden-contr-offload" />
+          <input
+            type="text"
+            id="laden-contr-offload"
+            class="caps"
+            list="laden-list"
+          />
+          <datalist id="laden-list"></datalist>
 
           <label for="invoice-no">Invoice No:</label>
-          <input type="text" id="invoice-no" />
+          <input type="text" id="invoice-no" class="caps" />
 
           <label for="invoice-date">Invoice Date:</label>
           <input type="date" id="invoice-date" />
@@ -107,6 +117,9 @@
           <label for="empty-pickup-exp">Empty Pickup Expense:</label>
           <input type="number" id="empty-pickup-exp" />
 
+          <label for="halting">Halting:</label>
+          <input type="number" id="halting-2" />
+
           <label for="billing-amount">Billing Amount:</label>
           <input type="number" id="billing-amount" />
 
@@ -131,6 +144,10 @@
           <label for="margin">Margin:</label>
           <input type="text" id="margin" />
 
+          <label for="Transporter">Transporter :</label>
+          <input type="text" id="transporter" class="caps" />
+          <datalist id="transporter-list"></datalist>
+
           <label for="remarks">Remarks:</label>
           <input type="text" id="remarks" />
 
@@ -143,7 +160,7 @@
             <th>Sl.no</th>
             <th>Movement Date</th>
             <th>Vehicle No</th>
-            <th>Contract No</th>
+            <th>Container No</th>
             <th>Container Size</th>
             <th>Cargo</th>
             <th>On A/C</th>
@@ -161,6 +178,7 @@
             <th>Paid To Vendor On</th>
             <th>Billing Rate</th>
             <th>Empty Pickup Expense</th>
+            <th>Halting</th>
             <th>Billing Amount</th>
             <th>TDS Deducted</th>
             <th>Net Amount Received</th>
@@ -169,15 +187,18 @@
             <th>Paid On</th>
             <th>Trip Expenses</th>
             <th>Margin</th>
+            <th>Transporter</th>
             <th>Remarks</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <!-- Expense entries will be added dynamically here -->
         </tbody>
+        <button onclick="exportToExcel()">Export to Excel</button>
       </table>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="dsr.js"></script>
   </body>
 </html>
