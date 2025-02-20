@@ -8,7 +8,8 @@ body {
   padding: 20px;
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
+  background-color: #f5f3ff;
   transition: background-color 0.3s ease;
 }
 
@@ -25,10 +26,14 @@ body {
   overflow-x: auto;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
+  border: 2px solid #e9d8fd;
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(107, 70, 193, 0.1);
 }
 
 .container:hover {
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0px 8px 20px rgba(107, 70, 193, 0.2);
 }
 
 .top {
@@ -50,11 +55,14 @@ body {
   min-width: 250px;
   background: #fff;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #c4b5fd;
 }
 
 .search-container:focus-within {
   border-color: #008abf;
   box-shadow: 0px 0px 8px rgba(0, 138, 191, 0.3);
+  border-color: #8b5cf6;
+  box-shadow: 0px 0px 8px rgba(139, 92, 246, 0.3);
 }
 
 .search {
@@ -97,6 +105,7 @@ body {
   min-width: 250px;
   background: #fff;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #c4b5fd;
 }
 
 .filter .first {
@@ -119,6 +128,7 @@ body {
 .filter select:focus {
   box-shadow: 0px 0px 8px rgba(208, 238, 249, 0.3);
   outline: none;
+  box-shadow: 0px 0px 8px rgba(139, 92, 246, 0.3);
 }
 
 .filter select:focus-visible {
@@ -136,8 +146,10 @@ body {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, background-color 0.3s ease;
   backface-visibility: hidden;
+  background: #6B46C1;
 
 }
+
 
 .add-expense {
   width: 50px;
@@ -151,11 +163,14 @@ body {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, background-color 0.3s ease;
   backface-visibility: hidden;
+  background: #6B46C1;
 }
 
 .add-expense:hover {
   transform: scale(1.1);
-  background-color: #005f8a;
+  background-color: #f4f6f7;
+  color: #6B46C1;
+  border: 2px solid #6B46C1;
 }
 
 .overlay {
@@ -190,7 +205,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: rgb(241, 223, 248);
   padding: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
@@ -304,4 +319,229 @@ table th {
   .filter {
     width: 100%;
   }
+}
+
+input[type="date"] {
+  padding: 8px;
+  border: 2px solid #e9d8fd;
+  border-radius: 6px;
+  background: #fff;
+  color: #553C9A;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+input[type="date"]:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+  outline: none;
+}
+
+/* Custom calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(230deg);
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Calendar popup styling */
+::-webkit-datetime-edit { color: #553C9A; }
+::-webkit-datetime-edit-fields-wrapper { background: #f5f3ff; }
+::-webkit-datetime-edit-text { color: #6B46C1; }
+::-webkit-inner-spin-button { display: none; }
+
+
+/* Table header color */
+table th {
+  background-color: #f5f3ff;
+  color: #6B46C1;
+}
+
+/* Form header background */
+.form-header {
+  background: #EDE9FE; /* Light purple */
+}
+
+/* Hover effects for table rows */
+tr:hover {
+  background-color: #f5f3ff !important;
+}
+
+/* Accent color for various elements */
+.accent-purple {
+  accent-color: #6B46C1;
+}
+
+.flatpickr-calendar {
+  background: #d5cff7 !important; /* Match your body background */
+  border: 1px solid #c4a7e7; /* Light purple accent */
+  border-radius: 10px;
+  color: #e0def4;
+}
+
+/* Header (Month, Year) */
+.flatpickr-months, .flatpickr-weekdays {
+  background: #3b3279; /* Darker shade for contrast */
+  color: #c4a7e7; /* Light purple text */
+}
+
+/* Weekdays */
+.flatpickr-weekday {
+  color: #7911f9 !important; /* Light purple */
+}
+
+/* Days */
+.flatpickr-day {
+  color: #e0def4; /* Light text */
+  background: transparent;
+  border-radius: 5px;
+}
+
+/* Hover Effect */
+.flatpickr-day:hover {
+  background: rgba(196, 167, 231, 0.3); /* Subtle light purple hover */
+  color: #4e2b78;
+}
+
+/* Selected Date */
+.flatpickr-day.selected {
+  background: #c4a7e7 !important; /* Light purple accent */
+  color: #191724 !important; /* Dark text for contrast */
+}
+
+/* Today Highlight */
+.flatpickr-day.today {
+  border: 1px solid #c4a7e7; /* Light purple border */
+}
+
+/* Navigation Arrows */
+.flatpickr-prev-month, .flatpickr-next-month {
+  fill: #c4a7e7 !important; /* Light purple arrows */
+}
+
+/* Footer (Clear & Today buttons) */
+.flatpickr-calendar .flatpickr-footer {
+  background: #7c6df3;
+  border-top: 1px solid #c4a7e7;
+}
+
+.flatpickr-calendar .flatpickr-footer button {
+  color: #c4a7e7;
+}
+
+/* Updated Flatpickr Calendar Theme */
+.flatpickr-calendar {
+  background: var(--body-bg, #bdbdf4) !important;
+  border: 1px solid #c1a3ff;
+  border-radius: 10px;
+  color: white;
+}
+
+.flatpickr-months, .flatpickr-weekdays {
+  background: #6767ec;
+  color: #c1a3ff;
+}
+
+.flatpickr-day {
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.flatpickr-day:hover, 
+.flatpickr-day.selected {
+  background: #c1a3ff !important;
+  color: white !important;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  gap: 15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(241, 223, 248);
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  width: 75vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000;
+  animation: slideIn 0.3s ease;
+}
+
+.modal-content {
+  color: white;
+}
+
+.modal input, 
+.modal select {
+  display: block;
+  width: 90%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.modal h2{
+  color: rgb(113, 30, 190);
+}
+.modal label {
+  color: black;
+  display: block;
+  font-weight: bold;
+  margin: auto;
+  width: 90%;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.confirm-btn {
+  background-color: #c1a3ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 35px;
+  margin-right: 20px;
+}
+
+.confirm-btn:hover {
+  background-color: #a07efc;
+}
+
+.cancel-btn {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #d13333;
+}
+
+/* Edit Button */
+.edit-btn {
+  background-color: #c1a3ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.edit-btn:hover {
+  background-color: #a07efc;
 }
