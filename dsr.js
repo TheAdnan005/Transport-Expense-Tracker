@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-/**
- * Checks if an object is a valid JavaScript Date.
- */
-function isValidDate(obj) {
-    return Object.prototype.toString.call(obj) === "[object Date]" && !isNaN(obj.getTime());
-=======
 
 flatpickr("input[type='date']", {
     dateFormat: "Y-m-d",
@@ -16,7 +9,6 @@ function isValidDate(obj) {
         Object.prototype.toString.call(obj) === "[object Date]" &&
         !isNaN(obj.getTime())
     );
->>>>>>> 8ae3387 (edit opt added)
 }
 
 /**
@@ -57,11 +49,7 @@ function parseDateString(dateStr) {
     if (parts.length !== 3) return null;
 
     // Detect the 4-digit year
-<<<<<<< HEAD
-    const yearIndex = parts.findIndex(p => p.length === 4);
-=======
     const yearIndex = parts.findIndex((p) => p.length === 4);
->>>>>>> 8ae3387 (edit opt added)
     if (yearIndex === -1) return null;
 
     let year, month, day;
@@ -74,15 +62,11 @@ function parseDateString(dateStr) {
         return null; // Invalid format
     }
 
-<<<<<<< HEAD
-    const parsedDate = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
-=======
     const parsedDate = new Date(
         parseInt(year, 10),
         parseInt(month, 10) - 1,
         parseInt(day, 10)
     );
->>>>>>> 8ae3387 (edit opt added)
     return isValidDate(parsedDate) ? parsedDate : null;
 }
 
@@ -96,11 +80,7 @@ function exportToExcel() {
 
     const dateColumns = [1, 12, 18, 25, 27];
 
-<<<<<<< HEAD
-    dateColumns.forEach(colIndex => {
-=======
     dateColumns.forEach((colIndex) => {
->>>>>>> 8ae3387 (edit opt added)
         const colLetter = XLSX.utils.encode_col(colIndex);
 
         for (let rowNum = 2; rowNum <= 2000; rowNum++) {
@@ -140,13 +120,6 @@ function exportToExcel() {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
     XLSX.writeFile(workbook, "Expense_Report.xlsx");
 }
-<<<<<<< HEAD
-
-  
-  
-  
-=======
->>>>>>> 8ae3387 (edit opt added)
 
 const searchIcon = document.querySelector(".search-icon");
 const closeIcon = document.querySelector(".close-icon");
