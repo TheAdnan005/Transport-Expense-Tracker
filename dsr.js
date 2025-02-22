@@ -26,6 +26,14 @@ function formatDate(dateObj) {
     return `${day}.${month}.${year}`;
 }
 
+
+function validateNumberInput(input) {
+    if (input.value === "") {
+        input.setCustomValidity("This field cannot be empty.");
+    } else {
+        input.setCustomValidity("");
+    }
+}
 /**
  * Converts an Excel serial date number to a JavaScript Date,
  * adjusting for Excel's leap year bug if needed.
@@ -179,79 +187,79 @@ function updateAllSuggestions() {
     updateSuggestions(datalistLaden, ladenList);
 }
 
-function addCard() {
-    const getValue = (id) =>
-        document.getElementById(id).value.trim().toUpperCase();
-    const totalValue = Number(getValue("total")) || 0;
-    const advanceValue = Number(getValue("advance")) || 0;
-    const tdsValue = Number(getValue("tds-deducted")) || 0;
+// function addCard() {
+//     const getValue = (id) =>
+//         document.getElementById(id).value.trim().toUpperCase();
+//     const totalValue = Number(getValue("total")) || 0;
+//     const advanceValue = Number(getValue("advance")) || 0;
+//     const tdsValue = Number(getValue("tds-deducted")) || 0;
 
-    const valuesToStore = [
-        {
-            key: "vehicleNumbers",
-            value: getValue("vehicle-no"),
-            storage: vehicleNumbers,
-        },
-        { key: "cargoItems", value: getValue("cargo"), storage: cargoItems },
-        { key: "onAcList", value: getValue("on-ac"), storage: onAcList },
-        { key: "billToList", value: getValue("bill-to"), storage: billToList },
-        { key: "fromList", value: getValue("from"), storage: fromList },
-        { key: "toList", value: getValue("to"), storage: toList },
-        {
-            key: "ladenList",
-            value: getValue("laden-contr-offload"),
-            storage: ladenList,
-        },
-    ];
+//     const valuesToStore = [
+//         {
+//             key: "vehicleNumbers",
+//             value: getValue("vehicle-no"),
+//             storage: vehicleNumbers,
+//         },
+//         { key: "cargoItems", value: getValue("cargo"), storage: cargoItems },
+//         { key: "onAcList", value: getValue("on-ac"), storage: onAcList },
+//         { key: "billToList", value: getValue("bill-to"), storage: billToList },
+//         { key: "fromList", value: getValue("from"), storage: fromList },
+//         { key: "toList", value: getValue("to"), storage: toList },
+//         {
+//             key: "ladenList",
+//             value: getValue("laden-contr-offload"),
+//             storage: ladenList,
+//         },
+//     ];
 
-    valuesToStore.forEach(({ key, value, storage }) => {
-        if (value && !storage.includes(value)) {
-            storage.push(value);
-            localStorage.setItem(key, JSON.stringify(storage));
-        }
-    });
+//     valuesToStore.forEach(({ key, value, storage }) => {
+//         if (value && !storage.includes(value)) {
+//             storage.push(value);
+//             localStorage.setItem(key, JSON.stringify(storage));
+//         }
+//     });
 
-    updateAllSuggestions();
+//     updateAllSuggestions();
 
-    const newEntry = {
-        movement: getValue("movement"),
-        vehicleNo: getValue("vehicle-no"),
-        contrNo: getValue("contr-no"),
-        twenty: getValue("twenty"),
-        cargo: getValue("cargo"),
-        onAc: getValue("on-ac"),
-        billTo: getValue("bill-to"),
-        from: getValue("from"),
-        to: getValue("to"),
-        ladenContrOffload: getValue("laden-contr-offload"),
-        invoiceNo: getValue("invoice-no"),
-        invoiceDate: getValue("invoice-date"),
-        rate: getValue("rate"),
-        halting: getValue("halting"),
-        total: totalValue,
-        advance: advanceValue,
-        balance: getValue("balance") || totalValue - advanceValue,
-        paidTo: getValue("paid-to"),
-        billingRate: getValue("billing-rate"),
-        emptyPickupExp: getValue("empty-pickup-exp"),
-        haltingTwo: getValue("halting-2"),
-        billingAmount: getValue("billing-amount"),
-        tds: tdsValue,
-        netAmount: getValue("net-amount") || totalValue - tdsValue,
-        paymentReceipt: getValue("payment-receipt"),
-        businessPromotion: getValue("business-promotion"),
-        paidOn: getValue("paid-on"),
-        expenses: getValue("expenses"),
-        margin: getValue("margin"),
-        Transporter: getValue("transporter"),
-        remarks: getValue("remarks"),
-    };
+//     const newEntry = {
+//         movement: getValue("movement"),
+//         vehicleNo: getValue("vehicle-no"),
+//         contrNo: getValue("contr-no"),
+//         twenty: getValue("twenty"),
+//         cargo: getValue("cargo"),
+//         onAc: getValue("on-ac"),
+//         billTo: getValue("bill-to"),
+//         from: getValue("from"),
+//         to: getValue("to"),
+//         ladenContrOffload: getValue("laden-contr-offload"),
+//         invoiceNo: getValue("invoice-no"),
+//         invoiceDate: getValue("invoice-date"),
+//         rate: getValue("rate"),
+//         halting: getValue("halting"),
+//         total: totalValue,
+//         advance: advanceValue,
+//         balance: getValue("balance") || totalValue - advanceValue,
+//         paidTo: getValue("paid-to"),
+//         billingRate: getValue("billing-rate"),
+//         emptyPickupExp: getValue("empty-pickup-exp"),
+//         haltingTwo: getValue("halting-2"),
+//         billingAmount: getValue("billing-amount"),
+//         tds: tdsValue,
+//         netAmount: getValue("net-amount") || totalValue - tdsValue,
+//         paymentReceipt: getValue("payment-receipt"),
+//         businessPromotion: getValue("business-promotion"),
+//         paidOn: getValue("paid-on"),
+//         expenses: getValue("expenses"),
+//         margin: getValue("margin"),
+//         Transporter: getValue("transporter"),
+//         remarks: getValue("remarks"),
+//     };
 
-    entries.push(newEntry);
-    updateTable();
-    resetForm();
-    toggleForm();
-}
+//     entries.push(newEntry);
+//     updateTable();
+//     resetForm();
+//     toggleForm();
+// }
 
 function calculateTotal() {
     const rate = Number(document.getElementById("rate").value) || 0;
@@ -416,7 +424,7 @@ window.editEntry = function (index) {
         document.getElementById("edit-net-amount").value = billingAmount - tds;
         const businessPromotion = Number(document.getElementById("edit-business-promotion").value) || 0;
         const tripExpenses = Number(document.getElementById("edit-expenses").value) || 0;
-    
+
         document.getElementById("edit-margin").value = billingAmount - tripExpenses - businessPromotion;
     }
 
@@ -425,7 +433,7 @@ window.editEntry = function (index) {
         "edit-rate", "edit-halting", "edit-advance", "edit-billing-rate",
         "edit-empty-pickup-exp", "edit-halting-2", "edit-business-promotion", "edit-expenses"
     ];
-    
+
     editInputs.forEach(id => {
         const element = document.getElementById(id);
         element.replaceWith(element.cloneNode(true)); // Remove existing listeners
@@ -440,32 +448,16 @@ window.editEntry = function (index) {
     document.getElementById("edit-halting-2").addEventListener("input", EditcalculateTotal);
     document.getElementById("edit-business-promotion").addEventListener("input", EditcalculateTotal);
     document.getElementById("edit-expenses").addEventListener("input", EditcalculateTotal);
-
-    // Show the modal
     document.getElementById("edit-modal").style.display = "block";
 };
-// document.addEventListener("click", function (event) {
-//     const editModal = document.getElementById("edit-modal");
-
-//     // Ensure the modal exists
-//     if (!editModal) return;
-
-//     // Check if the modal is open and the click is outside of it
-//     if (editModal.style.display === "block" && !editModal.contains(event.target)) {
-//         closeModal("edit-modal");
-//     }
-// });
 
 
-
-// Function to confirm edit and update the entry
 document.getElementById("confirm-edit").addEventListener("click", function () {
     if (editIndex < 0 || editIndex >= entries.length) {
         console.error("Invalid editIndex:", editIndex);
         return;
     }
 
-    // Update the entry
     entries[editIndex] = {
         movement: document.getElementById("edit-movement").value,
         vehicleNo: document.getElementById("edit-vehicle-no").value,
@@ -499,7 +491,7 @@ document.getElementById("confirm-edit").addEventListener("click", function () {
         Transporter: document.getElementById("edit-transporter").value,
         remarks: document.getElementById("edit-remarks").value
     };
-    
+
 
     // Update the table display
     updateTable();
@@ -512,6 +504,179 @@ document.getElementById("confirm-edit").addEventListener("click", function () {
 window.closeModal = function (modalId) {
     document.getElementById(modalId).style.display = "none";
 };
+
+
+let suggestions = {};
+
+// Fetch suggestions from MongoDB
+async function fetchSuggestions() {
+    try {
+        const response = await fetch("/suggestions");
+        const data = await response.json();
+        suggestions = data.reduce((acc, { type, values }) => {
+            acc[type] = values;
+            return acc;
+        }, {});
+        updateAllSuggestions();
+    } catch (error) {
+        console.error("Error fetching suggestions:", error);
+    }
+}
+
+// Update suggestions in the UI
+function updateAllSuggestions() {
+    const datalists = {
+        vehicle: datalistVehicle,
+        cargo: datalistCargo,
+        onAc: datalistOnAc,
+        billTo: datalistBillTo,
+        from: datalistFrom,
+        to: datalistTo,
+        laden: datalistLaden
+    };
+
+    Object.entries(datalists).forEach(([type, datalist]) => {
+        datalist.innerHTML = "";
+        if (suggestions[type]) {
+            suggestions[type].forEach(value => {
+                const option = document.createElement("option");
+                option.value = value;
+                datalist.appendChild(option);
+            });
+        }
+    });
+}
+
+// Add a new suggestion to MongoDB
+async function addSuggestion(type, value) {
+    if (!value || suggestions[type]?.includes(value)) return;
+
+    try {
+        await fetch("/suggestions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ type, value })
+        });
+        if (!suggestions[type]) suggestions[type] = [];
+        suggestions[type].push(value);
+        updateAllSuggestions();
+    } catch (error) {
+        console.error("Error adding suggestion:", error);
+    }
+}
+
+// Update addCard function to save suggestions
+async function addCard() {
+    const getValue = (id) => document.getElementById(id).value.trim().toUpperCase();
+
+    const valuesToStore = [
+        { type: "vehicle", value: getValue("vehicle-no") },
+        { type: "cargo", value: getValue("cargo") },
+        { type: "onAc", value: getValue("on-ac") },
+        { type: "billTo", value: getValue("bill-to") },
+        { type: "from", value: getValue("from") },
+        { type: "to", value: getValue("to") },
+        { type: "laden", value: getValue("laden-contr-offload") }
+    ];
+
+    valuesToStore.forEach(({ type, value }) => addSuggestion(type, value));
+
+    // Rest of your addCard logic...
+
+    const totalValue = Number(getValue("total")) || 0;
+    const advanceValue = Number(getValue("advance")) || 0;
+    const tdsValue = Number(getValue("tds-deducted")) || 0;
+
+
+    valuesToStore.forEach(({ key, value, storage }) => {
+        if (value && !storage.includes(value)) {
+            storage.push(value);
+            localStorage.setItem(key, JSON.stringify(storage));
+        }
+    });
+
+    updateAllSuggestions();
+
+    const newEntry = {
+        movement: getValue("movement"),
+        vehicleNo: getValue("vehicle-no"),
+        contrNo: getValue("contr-no"),
+        twenty: getValue("twenty"),
+        cargo: getValue("cargo"),
+        onAc: getValue("on-ac"),
+        billTo: getValue("bill-to"),
+        from: getValue("from"),
+        to: getValue("to"),
+        ladenContrOffload: getValue("laden-contr-offload"),
+        invoiceNo: getValue("invoice-no"),
+        invoiceDate: getValue("invoice-date"),
+        rate: getValue("rate"),
+        halting: getValue("halting"),
+        total: totalValue,
+        advance: advanceValue,
+        balance: getValue("balance") || totalValue - advanceValue,
+        paidTo: getValue("paid-to"),
+        billingRate: getValue("billing-rate"),
+        emptyPickupExp: getValue("empty-pickup-exp"),
+        haltingTwo: getValue("halting-2"),
+        billingAmount: getValue("billing-amount"),
+        tds: tdsValue,
+        netAmount: getValue("net-amount") || totalValue - tdsValue,
+        paymentReceipt: getValue("payment-receipt"),
+        businessPromotion: getValue("business-promotion"),
+        paidOn: getValue("paid-on"),
+        expenses: getValue("expenses"),
+        margin: getValue("margin"),
+        Transporter: getValue("transporter"),
+        remarks: getValue("remarks"),
+    };
+
+    entries.push(newEntry);
+    updateTable();
+    resetForm();
+    toggleForm();
+
+
+
+
+}
+
+fetchSuggestions();
+
+document.getElementById('edit-modal').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    try {
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        // Convert empty strings to null for optional fields
+        Object.keys(data).forEach(key => {
+            if (data[key] === '') data[key] = null;
+        });
+
+        const response = await fetch('/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            alert('Data saved successfully!');
+            toggleForm();
+            clearForm();
+        } else {
+            const error = await response.json();
+            alert(`Error: ${error.error}`);
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        alert('Failed to save data');
+    }
+});
+
 
 function clearStoredData() {
     // List of keys to remove from localStorage
@@ -528,7 +693,7 @@ function clearStoredData() {
     // Loop through each key and remove it from localStorage
     keys.forEach(key => {
         localStorage.removeItem(key);
-        key=[];
+        key = [];
     });
 
     alert("Stored vehicle data cleared!");
