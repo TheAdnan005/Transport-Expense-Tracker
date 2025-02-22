@@ -39,115 +39,118 @@
         <button class="clear" onclick="clearForm()">Clear</button>
         <button class="close" onclick="toggleForm()">×</button>
       </div>
-      <div class="popup-form-grid" id="popupFormGrid">
-        <label for="movement">Movement Date:</label>
-        <input type="date" id="movement" class="accent-purple" />
+      <form action="/post" method="POST" id="editForm">
+        <div class="popup-form-grid" id="popupFormGrid">
+          <label for="movement">Movement Date:</label>
+          <input type="date" id="movement" name="movementDate" class="accent-purple" />
 
-        <label for="vehicle-no">Vehicle No:</label>
-        <input type="text" id="vehicle-no" class="caps" list="vehicle-suggestions" />
-        <datalist id="vehicle-suggestions"> </datalist>
-        <button onclick="clearStoredData()">Clear Stored Vehicles</button>
+          <label for="vehicle-no">Vehicle No:</label>
+          <input type="text" id="vehicle-no" name="vehicleNo" class="caps" list="vehicle-suggestions" />
+          <datalist id="vehicle-suggestions"></datalist>
+          <button onclick="clearStoredData()">Clear Stored Vehicles</button>
 
-        <label for="contr-no">Container No:</label>
-        <input type="text" id="contr-no" class="caps" />
+          <label for="contr-no">Container No:</label>
+          <input type="text" id="contr-no" name="containerNo" class="caps" />
 
-        <label for="twenty">Container Size:</label>
-        <select id="twenty">
-          <option value="" disabled selected>20' / 40'</option>
-          <option value="20'">20'</option>
-          <option value="40'">40'</option>
-        </select>
+          <label for="twenty">Container Size:</label>
+          <select id="twenty" name="containerSize">
+            <option value="" disabled selected>20' / 40'</option>
+            <option value="20'">20'</option>
+            <option value="40'">40'</option>
+          </select>
 
-        <label for="cargo">Cargo:</label>
-        <input type="text" id="cargo" class="caps" list="cargo-list" />
-        <datalist id="cargo-list"></datalist>
+          <label for="cargo">Cargo:</label>
+          <input type="text" id="cargo" name="cargo" class="caps" list="cargo-list" />
+          <datalist id="cargo-list"></datalist>
 
-        <label for="on-ac">On A/C:</label>
-        <input type="text" id="on-ac" class="caps" list="on-ac-list" />
-        <datalist id="on-ac-list"></datalist>
+          <label for="on-ac">On A/C:</label>
+          <input type="text" id="on-ac" name="onAccount" class="caps" list="on-ac-list" />
+          <datalist id="on-ac-list"></datalist>
 
-        <label for="bill-to">Bill To:</label>
-        <input type="text" id="bill-to" class="caps" list="bill-to-list" />
-        <datalist id="bill-to-list"></datalist>
+          <label for="bill-to">Bill To:</label>
+          <input type="text" id="bill-to" name="billTo" class="caps" list="bill-to-list" />
+          <datalist id="bill-to-list"></datalist>
 
-        <label for="from">From:</label>
-        <input type="text" id="from" class="caps" list="from-list" />
-        <datalist id="from-list"></datalist>
+          <label for="from">From:</label>
+          <input type="text" id="from" name="from" class="caps" list="from-list" />
+          <datalist id="from-list"></datalist>
 
-        <label for="to">To:</label>
-        <input type="text" id="to" class="caps" list="to-list" />
-        <datalist id="to-list"></datalist>
+          <label for="to">To:</label>
+          <input type="text" id="to" name="to" class="caps" list="to-list" />
+          <datalist id="to-list"></datalist>
 
-        <label for="laden-contr-offload">Laden Container Offload:</label>
-        <input type="text" id="laden-contr-offload" class="caps" list="laden-list" />
-        <datalist id="laden-list"></datalist>
+          <label for="laden-contr-offload">Laden Container Offload:</label>
+          <input type="text" id="laden-contr-offload" name="ladenContainerOffload" class="caps" list="laden-list" />
+          <datalist id="laden-list"></datalist>
 
-        <label for="invoice-no">Invoice No:</label>
-        <input type="text" id="invoice-no" class="caps" />
+          <label for="invoice-no">Invoice No:</label>
+          <input type="text" id="invoice-no" name="invoiceNo" class="caps" />
 
-        <label for="invoice-date">Invoice Date:</label>
-        <input type="date" id="invoice-date" class="accent-purple" />
+          <label for="invoice-date">Invoice Date:</label>
+          <input type="date" id="invoice-date" name="invoiceDate" class="accent-purple" />
 
-        <label for="rate">Rate:</label>
-        <input type="number" id="rate" />
+          <label for="rate">Rate:</label>
+          <input type="number" id="rate" name="rate" />
 
-        <label for="halting">Halting:</label>
-        <input type="number" id="halting" />
+          <label for="halting">Halting:</label>
+          <input type="number" id="halting" name="halting" />
 
-        <label for="total">Total Amount:</label>
-        <input type="number" id="total" />
+          <label for="total">Total Amount:</label>
+          <input type="number" id="total" name="totalAmount" />
 
-        <label for="advance">Advance Diesel Amount:</label>
-        <input type="number" id="advance" />
+          <label for="advance">Advance Diesel Amount:</label>
+          <input type="number" id="advance" name="advanceDieselAmount" />
 
-        <label for="balance">Balance To Be Paid:</label>
-        <input type="number" id="balance" />
+          <label for="balance">Balance To Be Paid:</label>
+          <input type="number" id="balance" name="balanceToBePaid" />
 
-        <label for="paid-to">Paid to Vendor On:</label>
-        <input type="date" id="paid-to" class="accent-purple" />
+          <label for="paid-to">Paid to Vendor On:</label>
+          <input type="date" id="paid-to" name="paidToVendorOn" class="accent-purple" />
 
-        <label for="billing-rate">Billing Rate:</label>
-        <input type="number" id="billing-rate" />
+          <label for="billing-rate">Billing Rate:</label>
+          <input type="number" id="billing-rate" name="billingRate" />
 
-        <label for="empty-pickup-exp">Empty Pickup Expense:</label>
-        <input type="number" id="empty-pickup-exp" />
+          <label for="empty-pickup-exp">Empty Pickup Expense:</label>
+          <input type="number" id="empty-pickup-exp" name="emptyPickupExpense" />
 
-        <label for="halting">Halting:</label>
-        <input type="number" id="halting-2" />
+          <label for="halting-2">Halting:</label>
+          <input type="number" id="halting-2" name="haltingTwo" />
 
-        <label for="billing-amount">Billing Amount:</label>
-        <input type="number" id="billing-amount" />
+          <label for="billing-amount">Billing Amount:</label>
+          <input type="number" id="billing-amount" name="billingAmount" />
 
-        <label for="tds-deducted">TDS Deducted:</label>
-        <input type="number" id="tds-deducted" />
+          <label for="tds-deducted">TDS Deducted:</label>
+          <input type="number" id="tds-deducted" name="tdsDeducted" min="0" step="0.01" oninput="validateNumberInput(this)" />
 
-        <label for="net-amount">Net Amount Received:</label>
-        <input type="number" id="net-amount" />
+          <label for="net-amount">Net Amount Received:</label>
+          <input type="number" id="net-amount" name="netAmountReceived" min="0" step="0.01" oninput="validateNumberInput(this)" />
 
-        <label for="payment-receipt">Payment Receipt Date:</label>
-        <input type="date" id="payment-receipt" class="accent-purple" />
+          <label for="payment-receipt">Payment Receipt Date:</label>
+          <input type="date" id="payment-receipt" name="paymentReceiptDate" class="accent-purple" />
 
-        <label for="business-promotion">Business Promotion:</label>
-        <input type="text" id="business-promotion" />
+          <label for="business-promotion">Business Promotion:</label>
+          <input type="text" id="business-promotion" name="businessPromotion" />
 
-        <label for="paid-on">Paid On:</label>
-        <input type="date" id="paid-on" class="accent-purple" />
+          <label for="paid-on">Paid On:</label>
+          <input type="date" id="paid-on" name="paidOn" class="accent-purple" />
 
-        <label for="expenses">Trip Expenses:</label>
-        <input type="text" id="expenses" />
+          <label for="expenses">Trip Expenses:</label>
+          <input type="text" id="expenses" name="tripExpenses" />
 
-        <label for="margin">Margin:</label>
-        <input type="text" id="margin" />
+          <label for="margin">Margin:</label>
+          <input type="text" id="margin" name="margin" />
 
-        <label for="Transporter">Transporter :</label>
-        <input type="text" id="transporter" class="caps" />
-        <datalist id="transporter-list"></datalist>
+          <label for="transporter">Transporter:</label>
+          <input type="text" id="transporter" name="transporter" class="caps" />
+          <datalist id="transporter-list"></datalist>
 
-        <label for="remarks">Remarks:</label>
-        <input type="text" id="remarks" />
+          <label for="remarks">Remarks:</label>
+          <input type="text" id="remarks" name="remarks" />
 
-        <button class="add-entry" onclick="addCard()">Submit</button>
-      </div>
+
+          <button  type="submit" class="add-entry" >Submit</button>
+        </div>
+      </form>
     </div>
     <table class="expense-table" id="expenseTable">
       <thead>
@@ -195,7 +198,8 @@
 
     <div id="edit-modal" class="modal">
       <div class="modal-content">
-        <h2>Edit Entry</h2><label for="edit-movement">Movement Date:</label>
+        <h2>Edit Entry</h2>
+        <label for="edit-movement">Movement Date:</label>
         <input type="date" id="edit-movement" class="accent-purple" />
 
         <label for="edit-vehicle-no">Vehicle No:</label>
