@@ -533,6 +533,7 @@ tr:hover {
 
 /* Edit Button */
 .edit-btn {
+  height: 20px;
   background-color: #c1a3ff;
   color: white;
   border: none;
