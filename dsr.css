@@ -8,8 +8,7 @@ body {
   padding: 20px;
   margin: 0;
   font-family: Arial, sans-serif;
-  /* background-color: #f4f4f4; */
-  background-color: #f5f3ff;
+  background-color: #f4f4f4;
   transition: background-color 0.3s ease;
 }
 
@@ -26,14 +25,10 @@ body {
   overflow-x: auto;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
-  border: 2px solid #e9d8fd;
-  background: #fff;
-  box-shadow: 0px 4px 10px rgba(107, 70, 193, 0.1);
 }
 
 .container:hover {
-  /* box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); */
-  box-shadow: 0px 8px 20px rgba(107, 70, 193, 0.2);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .top {
@@ -55,14 +50,11 @@ body {
   min-width: 250px;
   background: #fff;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #c4b5fd;
 }
 
 .search-container:focus-within {
   border-color: #008abf;
   box-shadow: 0px 0px 8px rgba(0, 138, 191, 0.3);
-  border-color: #8b5cf6;
-  box-shadow: 0px 0px 8px rgba(139, 92, 246, 0.3);
 }
 
 .search {
@@ -105,7 +97,6 @@ body {
   min-width: 250px;
   background: #fff;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #c4b5fd;
 }
 
 .filter .first {
@@ -128,7 +119,6 @@ body {
 .filter select:focus {
   box-shadow: 0px 0px 8px rgba(208, 238, 249, 0.3);
   outline: none;
-  box-shadow: 0px 0px 8px rgba(139, 92, 246, 0.3);
 }
 
 .filter select:focus-visible {
@@ -146,10 +136,8 @@ body {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, background-color 0.3s ease;
   backface-visibility: hidden;
-  background: #6B46C1;
 
 }
-
 
 .add-expense {
   width: 50px;
@@ -163,14 +151,11 @@ body {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, background-color 0.3s ease;
   backface-visibility: hidden;
-  background: #6B46C1;
 }
 
 .add-expense:hover {
   transform: scale(1.1);
-  background-color: #f4f6f7;
-  color: #6B46C1;
-  border: 2px solid #6B46C1;
+  background-color: #005f8a;
 }
 
 .overlay {
@@ -205,7 +190,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgb(241, 223, 248);
+  background: white;
   padding: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
